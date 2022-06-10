@@ -1,0 +1,113 @@
+$primary: hsl(180, 100%, 30%);
+$secondary: #cacaca;
+$info: #007bff;
+$danger: #dc3545;
+.rounded-custom {
+    border-radius: .6rem;
+}
+.rounded-top-custom {
+    border-radius: 0;
+    border-top-right-radius: .6rem;
+    border-top-left-radius: .6rem;
+}
+.rounded-bottom-custom {
+    border-radius: 0;
+    border-bottom-right-radius: .6rem;
+    border-bottom-left-radius: .6rem;
+}
+
+.styled-table {
+    border-collapse: collapse;
+    margin: 0 0;
+    font-size: 0.9em;
+    font-family: sans-serif;
+    overflow: hidden;
+}
+
+.styled-table th,
+.styled-table td {
+    padding: 12px;
+    overflow: hidden;
+    text-overflow: ellipsis;
+    white-space: nowrap;
+}
+
+.styled-table tr th:nth-child(1),
+.styled-table tr td:nth-child(1) {
+    width: fit-content;
+}
+
+.styled-table tr th:nth-child(2),
+.styled-table tr td:nth-child(2) {
+    max-width: 90px;
+}
+
+.styled-table tr th:nth-child(3),
+.styled-table tr td:nth-child(3) {
+    max-width: 120px;
+}
+.styled-table tr th:nth-child(4),
+.styled-table tr td:nth-child(4) {
+    max-width: 90px;
+}
+
+.styled-table tbody tr {
+    border-bottom: 1px solid #dddddd;
+}
+
+.styled-table tbody tr:nth-of-type(even) {
+    background-color: #f3f3f3;
+}
+
+.styled-table tbody tr:last-of-type {
+    border-bottom: 2px solid $primary;
+}
+
+.noborder-bottom {
+    border-bottom: none !important;
+}
+.outline-none {
+    outline: none!important;
+}
+.outline-none:focus {
+    outline: none!important;
+    box-shadow: none!important;
+}
+
+.styled-table thead tr {
+    background-color: $primary;
+    color: #ffffff;
+    text-align: left;
+}
+
+.styled-table tbody tr.active-row {
+    font-weight: bold;
+    color: $primary;
+}
+
+.switch-group .switch-on{
+    background-color: $primary;
+    color: white;
+}
+.switch-group .switch-on:hover{
+    background-color: $primary;
+    color: white;
+}
+
+.switch-group .switch-off{
+    background-color: $danger;
+    color: white;
+}
+.switch-group .switch-off:hover{
+    background-color: $danger;
+    color: white;
+}
+
+.switch.btn.btn-primary {
+    border-color: $secondary !important;
+}
+
+.border-primary {
+    border-color: $primary !important; 
+}
+@import "~bootstrap/scss/bootstrap.scss";

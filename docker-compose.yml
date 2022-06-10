@@ -1,0 +1,107 @@
+version: '3.8'
+services:
+  configserver:
+    container_name: configserver
+    build: 
+      context: ./NodejsApp
+      dockerfile: Dockerfile
+    volumes:
+      - sqlitedb:/usr/src/app/iot2050cfserver/Database
+      - customJSON:/usr/src/app/iot2050cfserver/customJSON
+    depends_on:
+      - redis
+    restart: always
+    ports:
+      - 4000:4000
+
+  application:
+    container_name: application
+    build:
+      context: ./ReactApp
+      dockerfile: Dockerfile
+    restart: always
+    depends_on:
+      - configserver
+    ports:
+      - 3000:3000
+  
+  mqttclient:
+    container_name: mqttclient
+    build:
+      context: ./MQTTClient
+      dockerfile: Dockerfile
+    volumes:
+      - sqlitedb:/usr/src/app/mqttclient/Database
+      - customJSON:/usr/src/app/mqttclient/customJSON
+    restart: always
+    depends_on:
+      - configserver
+      - redis
+    ports:
+      - 4005:4005
+
+  opc_ua:
+    container_name: opc_ua
+    build:
+      context: ./OPC_UA
+      dockerfile: Dockerfile
+    volumes:
+      - sqlitedb:/usr/src/app/opc_ua/Database
+      - customJSON:/usr/src/app/opc_ua/customJSON
+    restart: always
+    depends_on:
+      - configserver
+      - redis
+    ports:
+      - 4004:4004
+  
+  modbustcp:
+    container_name: modbustcp
+    build:
+      context: ./ModbusTCP
+      dockerfile: Dockerfile
+    volumes:
+      - sqlitedb:/usr/src/app/modbustcp/Database
+      - customJSON:/usr/src/app/modbustcp/customJSON
+    restart: always
+    depends_on:
+      - configserver
+      - redis
+    ports:
+      - 4001:4001
+  
+  modbusrtu:
+    container_name: modbusrtu
+    build:
+      context: ./ModbusRTU
+      dockerfile: Dockerfile
+    volumes:
+      - sqlitedb:/usr/src/app/modbusrtu/Database
+      - customJSON:/usr/src/app/modbusrtu/customJSON
+    restart: always
+    depends_on:
+      - configserver
+      - redis
+    ports:
+      - 4002:4002
+
+  redis:
+    container_name: redis
+    image: redis:alpine
+    restart: always
+  
+  logger:
+    container_name: logger
+    build:
+      context: ./Logger
+      dockerfile: Dockerfile
+    volumes:
+      - logfile:/usr/src/app/logger/LogFolder
+    depends_on:
+      - redis
+    restart: always
+    
+volumes:
+  sqlitedb:
+  customJSON:
+  logfile:
